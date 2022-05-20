@@ -46,20 +46,19 @@ public class MenuFunctions {
         String phone = in.nextLine();
         System.out.print("Введите почту пользователя: ");
         String mail = in.nextLine();
-        //if (Validator.correctPerson(name, surname, age, phone, mail)) {
-        User user = getUserInfo();
-        if (user != null) {
-            person = new Person(surname, name, Integer.parseInt(age), phone, mail);
-            user.setPerson(person);
-            person.setUser(user);
-        }
-        else {
-            System.out.println("Пароль или логин не корректны!");
-        }
-      /*  }
-        else {
+        if (Validator.correctPerson(name, surname, age, phone, mail)) {
+            User user = getUserInfo();
+            if (user != null) {
+                person = new Person(surname, name, Integer.parseInt(age), phone, mail);
+                user.setPerson(person);
+                person.setUser(user);
+            }
+            else {
+                System.out.println("Пароль или логин не корректны!");
+            }
+        } else {
             System.out.println("Личные данные не корректны!");
-        }*/
+        }
         return person;
     }
 
@@ -69,14 +68,14 @@ public class MenuFunctions {
         String login = in.nextLine();
         System.out.print("Введите пароль пользователя: ");
         String password = in.nextLine();
-        //  if(Validator.correctUser(login, password)) {
-        if(checkUniqueLogin(login)) {
-            user = new User(login, password, "User");
+        if(Validator.correctUser(login, password)) {
+            if(checkUniqueLogin(login)) {
+                user = new User(login, password, "User");
+            }
+            else {
+                System.out.println("Такой логин уже занят!");
+            }
         }
-        else {
-            System.out.println("Такой логин уже занят!");
-        }
-        //}
         return user;
     }
 
@@ -118,16 +117,15 @@ public class MenuFunctions {
         String phone = in.nextLine();
         System.out.print("Введите почту пользователя: ");
         String mail = in.nextLine();
-        //  if (Validator.correctPerson(name, surname, age, phone, mail)) {
-        person.setName(name);
-        person.setSurname(surname);
-        person.setAge(Integer.parseInt(age));
-        person.setPhone(phone);
-        person.setMail(mail);
-       /* }
-        else {
+        if (Validator.correctPerson(name, surname, age, phone, mail)) {
+            person.setName(name);
+            person.setSurname(surname);
+            person.setAge(Integer.parseInt(age));
+            person.setPhone(phone);
+            person.setMail(mail);
+        } else {
             System.out.println("Личные данные не корректны!");
-        }*/
+        }
         return person;
     }
 
@@ -137,10 +135,10 @@ public class MenuFunctions {
         String login = in.nextLine();
         System.out.print("Введите пароль пользователя: ");
         String password = in.nextLine();
-        //   if(Validator.correctUser(login, password)) {
-        person.getUser().setLogin(login);
-        person.getUser().setPassword(password);
-        // }
+        if(Validator.correctUser(login, password)) {
+            person.getUser().setLogin(login);
+            person.getUser().setPassword(password);
+        }
         return person;
     }
 
@@ -169,16 +167,15 @@ public class MenuFunctions {
 
     private boolean getPersonId(String id) {
         boolean isAppropriateNumber = false;
-        if (!(Integer.parseInt(id) < 0) && Validator.correctId(id)) {
-            isAppropriateNumber = true;
-        }
-        else {
-            System.out.println("Такого ID нет!");
-        }
-       /* }
-        else {
+        if (Validator.correctId(id)) {
+            if (!(Integer.parseInt(id) < 0)){
+                isAppropriateNumber = true;
+            }else{
+                System.out.println("Такого ID нет!");
+            }
+        }else{
             System.out.println("ID не корректно!");
-        }*/
+        }
         return isAppropriateNumber;
     }
 
